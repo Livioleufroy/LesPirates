@@ -1,14 +1,16 @@
 package jeu;
 
 import java.util.Random;
-import Pions.Couleur;
-import Pions.Nom;
-import Pions.Personnages;
+
+import interface_de_jeu.Affichage;
+import pions.Couleur;
+import pions.Nom;
+import pions.Personnage;
 
 public class Jeu {
 	private int nbJoueurs=2;
-	private Personnages[] listePirates;
-	private map map=new map();
+	private Personnage[] listePersonnage;
+	private Map map=new Map();
 	private Random random=new Random();
 	
 	public int getNbJoueurs() {
@@ -17,17 +19,17 @@ public class Jeu {
 	
 	public Jeu(int nbJoueurs){
 		this.nbJoueurs=nbJoueurs;
-		listePirates=new Personnages[nbJoueurs];
+		listePersonnage=new Personnage[nbJoueurs];
 	}
 	public Jeu() {
-		listePirates=new Personnages[nbJoueurs];
+		listePersonnage=new Personnage[nbJoueurs];
 	}
 	
-	public Personnages[] getListePirates() {
-		return listePirates;
+	public Personnage[] getListePersonnage() {
+		return listePersonnage;
 	}
 	
-	public map getMap() {
+	public Map getMap() {
 		return map;
 	}
 	
@@ -39,14 +41,14 @@ public class Jeu {
 		
 		while (plusDeUnEnVie && !arrivee) {
 			
-			for (int i=0; i<listePirates.length && (!arrivee && plusDeUnEnVie);i++) {
+			for (int i=0; i<listePersonnage.length && (!arrivee && plusDeUnEnVie);i++) {
 				
-				Pirate[] listeReac=new Pirate[nbJoueurs-1];
+				Personnage[] listeReac=new Personnage[nbJoueurs-1];
 				
 				// Tour d'un pirate
-					tour1Pirate(listePirates[i]);
+					tour1Personnage(listePersonnage[i]);
 					
-					arrivee=gagnantBarque(listePirates[i]);
+					arrivee=gagnantBarque(listePersonnage[i]);
 				
 			if (!plusDeUnEnVie) {
 				gagnantDuel();
@@ -55,50 +57,50 @@ public class Jeu {
 			}
 	}
 	
-	private Pirate[] remplissageListePirate() {
+	private Personnage[] remplissageListePirate() {
 		
 		for (int i=0; i<nbJoueurs;i++) {
-			listePirates[i]=new Pirate(Identite.values()[i], Couleur.values()[i]);
+			listePersonnage[i]=new Personnage(Nom.values()[i], Couleur.values()[i]);
 		}
-		return listePirates;
+		return listePersonnage;
 		
 	}
 	
 	
-	private void tour1Pirate(Pirate pirate) {
+	private void tour1Personnage(Personnage Personnage) {
 		
 		int de;
 	
-		if (pirate.getPv()>0) {
-			journal.aQuiTour(pirate);
+		if (Personnage.getPv()>0) {
+			fenetredejeu.aQuiTour(Personnage);
 			
 			de=De.lanceDe(random);
-			journal.lancerDe(pirate, de);
+			fenetredejeu.lancerDe(Personnage, de);
 			
-			journal.deplacement(pirate, de, plateau.getNbCases());
+			fenetredejeu.deplacement(Personnage, de, Affichage.getNbCases());
 			
-			pirate.deplacerPirate(plateau.getNbCases(), de);
+			Personnage.deplacerPirate(Affichage.getNbCases(), de);
 			
-			journal.descCase(pirate, plateau.getListeCases()[pirate.getPosition()-1]);
-			if (plateau.getListeCases()[pirate.getPosition()-1].isCaseSpeciale()) {
-				((CaseSpeciale) plateau.getListeCases()[pirate.getPosition()-1]).appliquerEffet(pirate, plateau, random, journal);
+			fenetredejeu.descCase(Personnage, Affichage.getListeCases()[Personnage.getPosition()-1]);
+			if (Affichage.getListeCases()[Personnage.getPosition()-1].isCaseSpeciale()) {
+				((CaseSpeciale) Affichage.getListeCases()[Personnage.getPosition()-1]).appliquerEffet(Personnage, Affichage, random, fenetredejeu);
 			}
 			else {
-				journal.appuieSurEntree();
+				fenetredejeu.appuieSurEntree();
 			}
 		}
 	}
 	
 	
 	
-	private int checkDuel(Pirate initiateur, Pirate[] listeReac) {
+	private int checkDuel(Personnage initiateur, Personnage[] listeReac) {
 		int indexReac=-1;
 		if (initiateur.getPv()>0) {
-			for (int j=0; j<listePirates.length;j++) {
-				if (!initiateur.equals(listePirates[j]) && listePirates[j].getPv()>0 && Math.abs(initiateur.getPosition()-listePirates[j].getPosition())<4) {
+			for (int j=0; j<listePersonnage.length;j++) {
+				if (!initiateur.equals(listePersonnage[j]) && listePersonnage[j].getPv()>0 && Math.abs(initiateur.getPosition()-listePersonnage[j].getPosition())<4) {
 					
 					indexReac++;	
-					listeReac[indexReac]=listePirates[j];
+					listeReac[indexReac]=listePersonnage[j];
 							
 				}
 			}
@@ -109,10 +111,10 @@ public class Jeu {
 	
 	}
 	
-	private boolean gagnantBarque(Personnages personnages) {
+	private boolean gagnantBarque(Personnage personnage) {
 		boolean arrivee=false;
-		if (personnages.getPosition()==map.getNbCases()) {
-			journal.gagnantBarque(personnages);
+		if (personnage.getPosition()==map.getNbCases()) {
+			fenetredejeu.gagnantBarque(personnage);
 			arrivee=true;
 		}
 		return arrivee;

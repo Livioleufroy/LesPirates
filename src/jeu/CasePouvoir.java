@@ -1,4 +1,4 @@
-package cases;
+package jeu;
 
 public class CasePouvoir {
 

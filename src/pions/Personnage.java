@@ -1,13 +1,13 @@
 package pions;
 
 public class Personnage {
-	public class Pirate {
+	
 		private int pv=5;
 		private Nom nom;
 		private Couleur couleur;
 		private int position=1;
 		
-		public Pirate(Nom nom, Couleur couleur) {
+		public Personnage(Nom nom, Couleur couleur) {
 			this.nom=nom;
 			this.couleur=couleur;
 		}
@@ -16,7 +16,7 @@ public class Personnage {
 		public int getPv() {
 			return pv;
 		}
-		public Nom getIdentite() {
+		public Nom getNom() {
 			return nom;
 		}
 		
@@ -82,4 +82,4 @@ public class Personnage {
 			pv=nvPv;
 		}
 	}
-}
+
