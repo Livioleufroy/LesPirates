@@ -7,18 +7,18 @@ import pions.Personnage;
 
 public abstract class CasesSpeciales extends Case {
 
-	private ActionCase ActionCase;
+	private Effet Effet;
 	
-	protected CasesSpeciales(ActionCase actioncase) {
+	protected CasesSpeciales(Effet effet) {
 		super();
-		this.ActionCase=actioncase;
+		this.Effet=effet;
 	}
 
-	public ActionCase getActionCase() {
-		return ActionCase;
+	public Effet getEffet() {
+		return Effet;
 	}
 	
-	protected abstract void appliquerActionCase(Personnage personnage, Map map, Random random, FenetreDeJeu FenetreDeJeu);
+	protected abstract void appliquerEffet(Personnage personnage, Map map, Random random, FenetreDeJeu FenetreDeJeu);
 
 	@Override
 	protected boolean isCaseSpeciale() {

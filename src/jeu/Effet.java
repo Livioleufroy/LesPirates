@@ -1,5 +1,6 @@
 package jeu;
 
-public enum ActionCase {
+public enum Effet {
 	Reset, Pouvoir, VS, Piege
+
 }

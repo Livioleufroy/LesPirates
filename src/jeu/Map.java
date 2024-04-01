@@ -6,7 +6,51 @@ public class Map {
         printColoredSpiralArray(spiralArray);
     }
 
-    // Générer le tableau enroulé en spirale
+    // Méthode pour obtenir la liste des cases dans le tableau en spirale
+    public static int[][] getListeCases(int numRows, int numCols) {
+        int[][] spiralArray = new int[numRows][numCols];
+        int rowStart = 0;
+        int rowEnd = numRows - 1;
+        int colStart = 0;
+        int colEnd = numCols - 1;
+        int num = 1;
+
+        while (num <= numRows * numCols) {
+            for (int i = colStart; i <= colEnd; ++i) {
+                spiralArray[rowStart][i] = num++;
+            }
+            rowStart++;
+
+            for (int i = rowStart; i <= rowEnd; ++i) {
+                spiralArray[i][colEnd] = num++;
+            }
+            colEnd--;
+
+            for (int i = colEnd; i >= colStart; --i) {
+                spiralArray[rowEnd][i] = num++;
+            }
+            rowEnd--;
+
+            for (int i = rowEnd; i >= rowStart; --i) {
+                spiralArray[i][colStart] = num++;
+            }
+            colStart++;
+        }
+        return spiralArray;
+    }
+
+    // Méthode pour obtenir la liste des personnages sur la carte
+    public static String getListePersonnage() {
+        // À implémenter selon les besoins
+        return "Liste des personnages";
+    }
+
+    // Méthode pour obtenir le nombre total de cases dans le tableau en spirale
+    public static int getNbCases(int numRows, int numCols) {
+        return numRows * numCols;
+    }
+
+    // Méthode pour générer le tableau enroulé en spirale
     public static int[][] generateSpiralArray(int numRows, int numCols) {
         int[][] spiralArray = new int[numRows][numCols];
         int rowStart = 0;
