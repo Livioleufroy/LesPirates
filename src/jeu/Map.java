@@ -1,6 +1,9 @@
 package jeu;
 
+import pions.Personnage;
+
 public class Map {
+	
     public static void main(String[] args) {
         int[][] spiralArray = generateSpiralArray(6, 5);
         printColoredSpiralArray(spiralArray);
@@ -83,13 +86,15 @@ public class Map {
         return spiralArray;
     }
 
-    // Afficher le tableau en couleur selon les spécifications
+ // Afficher le tableau en couleur selon les spécifications
     public static void printColoredSpiralArray(int[][] spiralArray) {
         for (int i = 0; i < spiralArray.length; i++) {
             for (int j = 0; j < spiralArray[i].length; j++) {
                 int num = spiralArray[i][j];
                 if (num == 1)
                     System.out.print("\u001B[32m"); // Vert
+                else if (num == 5 || num == 13 || num == 18)
+                    System.out.print("\u001B[34m"); // Bleu
                 else if (num == 10 || num == 20)
                     System.out.print("\u001B[31m"); // Rouge
                 else if (num == 8 || num == 15 || num == 28)
@@ -109,4 +114,15 @@ public class Map {
         // Réinitialiser la couleur après l'affichage du tableau
         System.out.print("\u001B[0m");
     }
+
+	public Personnage[] getListeCases() {
+		
+		return null;
+	}
+
+	public Case[] getListeCases(int i) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

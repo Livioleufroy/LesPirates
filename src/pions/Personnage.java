@@ -5,6 +5,7 @@ public class Personnage {
     private Nom nom;
     private Couleur couleur;
     private int position = 1;
+    private boolean immuniteActive = false;
 
     public Personnage(Nom nom, Couleur couleur) {
         this.nom = nom;
@@ -29,6 +30,12 @@ public class Personnage {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+    public boolean isImmuniteActive() {
+        return immuniteActive;
+    }
+    public void setImmunite(boolean immuniteActive) {
+        this.immuniteActive = immuniteActive;
     }
 
     public void setPv(int pv) {
@@ -76,6 +83,11 @@ public class Personnage {
         }
         pv = nvPv;
     }
+
+	public int getNumero() {
+		
+		return 0;
+	}
 }
 
 
