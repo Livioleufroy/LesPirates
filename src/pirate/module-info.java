@@ -1,0 +1,3 @@
+
+module pirate2 {
+}
